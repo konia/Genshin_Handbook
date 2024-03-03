@@ -12,36 +12,50 @@ datasource db {
 }
 
 model User {
-  id            String        @id @default(auto()) @map("_id") @db.ObjectId
-  userId        String        @default(uuid()) @db.ObjectId
-  name          String
-  email         String        @unique
-  password      String
-  role          Role          @default(USER)
-
-  @@map("users")
+  id              String    @id @default(auto()) @map("_id") @db.ObjectId
+  userId          String    @default(uuid()) @db.ObjectId
+  name            String
+  email           String    @unique
+  password        String
+  role            Role      @default(USER)
 }
-
 model Character {
-  id            String        @id @default(auto()) @map("_id") @db.ObjectId
-  name          String?
-  label         String
-  description   String
-  avatar        String
-  movieIDs      String[]      @db.ObjectId
-  movies        Movie[]       @relation(fields: [movieIDs], references: [id])
-
-  @@map("characters")
+  id              String    @id @default(auto()) @map("_id") @db.ObjectId
+  name            String
+  description     String
+  post            String
+  slogen          String
+  vision          String // 神之眼
+  quality         String
+  characterVoice  String[]
+  voice           String[]
+  avatar          String
+  weapon          String
+  tags            String[]
+  profile         Profile?
+  region          Region    @relation(fields: [regionId], references: [id])
+  regionId        String @db.ObjectId
 }
 
-model Movie {
-  id            String          @id @default(auto()) @map("_id") @db.ObjectId
-  name          String
-  date          DateTime
-  characterIDs  String[]       @db.ObjectId
-  characters    Character[]    @relation(fields: [characterIDs], references: [id])
+model Profile {
+  id              String    @id @default(auto()) @map("_id") @db.ObjectId
+  character       Character @relation(fields: [characterId], references: [id])
+  characterId     String    @unique @db.ObjectId
+  constellation   String    // 命之座
+  vision          String    // 神之眼
 
-  @@map("movies")
+  affiliation     String    //所属
+  title           String    //称号
+  birthday        String
+  avatar          String
+  card            String
+  cover           String
+}
+
+model Region {
+  id              String   @id @default(auto()) @map("_id") @db.ObjectId
+  name            String
+  characters      Character[]
 }
 
 enum Role {

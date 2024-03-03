@@ -57,3 +57,12 @@
     @apply h-screen bg-background text-foreground;
   }
 }
+
+@font-face {
+  font-family: Genshin;
+  src: url('/fonts/Genshin.ttf') format('truetype');
+}
+
+.font-genshin {
+  font-family: Genshin !important;
+}
