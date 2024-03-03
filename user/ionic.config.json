@@ -1,0 +1,7 @@
+{
+  "name": "User",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "vue-vite"
+}

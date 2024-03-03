@@ -1,0 +1,41 @@
+{
+  "root": true,
+  "extends": ["next/core-web-vitals", "prettier"],
+  "plugins": ["@typescript-eslint", "prettier", "simple-import-sort", "import"],
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "ecmaFeatures": { "jsx": true }
+  },
+  "rules": {
+    "prettier/prettier": "error",
+    "@typescript-eslint/no-unused-vars": "error",
+    "@typescript-eslint/no-explicit-any": "error",
+    "react/react-in-jsx-scope": "off",
+    "react/jsx-filename-extension": [
+      1,
+      {
+        "extensions": [".ts", ".tsx", ".js", ".jsx"]
+      }
+    ],
+    "react/jsx-props-no-spreading": "off",
+    "simple-import-sort/imports": [
+      "error",
+      {
+        "groups": [
+          ["^next", "^react", "^@?\\w"], // Module
+          ["^@(/.*|$)"], // Global Import
+          ["^\\.\\.(?!/?$)", "^\\.\\./?$"], // Parent Import
+          ["^\\./(?=.*/)(?!/?$)", "^\\.(?!/?$)", "^\\./?$"], // Sibling Import
+          [".*\\.tsx$"], // component
+          ["^(@|components)(/.*|$)"], // component
+          ["^.+\\.?(css)$"], // Style
+          ["^\\u0000"]
+        ]
+      }
+    ],
+    "simple-import-sort/exports": "error", // exports
+    "import/no-duplicates": "error", // Merge the same import
+    "import/first": "error", // Make sure all imports are at the top of the file
+    "import/newline-after-import": "error" // Make sure have a newline after importing
+  }
+}
