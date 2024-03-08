@@ -1,0 +1,14 @@
+ID,ja,en,zh
+PROFILE.NAME,おはようございます,Agree and Proceed,你好
+PROFILE.AGREE,____,Agree,__
+PROFILE.DISAGREE,_____,Do Not Agree,___
+PROFILE.GOTO_NEXT,_____,Next,___
+PROFILE.YEN,_,yen,__
+PROFILE.TEN_THOUSAND_YEN,__,0000 yen,___
+PROFILE.NOW,__,Now,__
+PROFILE.CONFIRMATION,__,Confirm,__
+PROFILE.YEAR,_,Yrs,_
+PROFILE.CANCEL,_____,Cancel,__
+PROFILE.RETRY,____,Retry,__
+PROFILE.ATTENTION_TITLE,_____,Notes ,____
+PROFILE.AMOUNT_OF_MONEY,__,Amount,__

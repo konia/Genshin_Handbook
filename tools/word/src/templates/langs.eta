@@ -1,0 +1,20 @@
+<%
+const { locale, content, parseString } = it;
+
+const parseItem = (content) => {
+    return Object.entries(content).map(([key, value]) => {
+      if (typeof value == 'object') {
+        return `${key}: {
+          ${ parseItem(value) },
+        }`
+      } else {
+        return key + ': ' +  `'${value}'`
+      }
+    }).join(",\n");
+  }
+%>
+
+// eslint-disable-next-line import/no-anonymous-default-export
+export default {
+  <%~ parseItem(content) %>
+}

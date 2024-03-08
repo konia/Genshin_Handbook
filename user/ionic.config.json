@@ -1,7 +1,5 @@
 {
-  "name": "User",
-  "integrations": {
-    "capacitor": {}
-  },
-  "type": "vue-vite"
+  "name": "user",
+  "integrations": {},
+  "type": "react-vite"
 }
