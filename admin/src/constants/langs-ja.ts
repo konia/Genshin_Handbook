@@ -1,18 +1,23 @@
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
   PROFILE: {
-    NAME: 'おはようございます',
-    AGREE: '____',
-    DISAGREE: '_____',
-    GOTO_NEXT: '_____',
-    YEN: '_',
-    TEN_THOUSAND_YEN: '__',
-    NOW: '__',
-    CONFIRMATION: '__',
-    YEAR: '_',
-    CANCEL: '_____',
-    RETRY: '____',
-    ATTENTION_TITLE: '_____',
-    AMOUNT_OF_MONEY: '__'
+    NAME: 'Agree and Proceed',
+    AGREE: 'Agree',
+    DISAGREE: 'Do Not Agree',
+    GOTO_NEXT: 'Next',
+    YEN: 'yen',
+    TEN_THOUSAND_YEN: '0000 yen',
+    NOW: 'Now',
+    CONFIRMATION: 'Confirm',
+    YEAR: 'Yrs',
+    CANCEL: 'Cancel',
+    RETRY: 'Retry',
+    ATTENTION_TITLE: 'Notes ',
+    AMOUNT_OF_MONEY: 'Amount'
+  },
+  NAVIGATION: {
+    DASHBOARD: 'ダッシュボード',
+    CHARACTERS: 'キャラ',
+    ARTIFACTS: '聖遺物'
   }
 };

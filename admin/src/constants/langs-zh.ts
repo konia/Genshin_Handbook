@@ -14,5 +14,10 @@ export default {
     RETRY: '__',
     ATTENTION_TITLE: '____',
     AMOUNT_OF_MONEY: '__'
+  },
+  NAVIGATION: {
+    DASHBOARD: '仪表盘',
+    CHARACTERS: '角色',
+    ARTIFACTS: '圣遗物'
   }
 };

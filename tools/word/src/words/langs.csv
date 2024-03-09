@@ -1,4 +1,4 @@
-ID,ja,en,zh
+ID,en,ja,zh
 PROFILE.NAME,おはようございます,Agree and Proceed,你好
 PROFILE.AGREE,____,Agree,__
 PROFILE.DISAGREE,_____,Do Not Agree,___
@@ -12,3 +12,6 @@ PROFILE.CANCEL,_____,Cancel,__
 PROFILE.RETRY,____,Retry,__
 PROFILE.ATTENTION_TITLE,_____,Notes ,____
 PROFILE.AMOUNT_OF_MONEY,__,Amount,__
+NAVIGATION.DASHBOARD,Dashboard,ダッシュボード,仪表盘
+NAVIGATION.CHARACTERS,Characters,キャラ,角色
+NAVIGATION.ARTIFACTS,Artifacts,聖遺物,圣遗物

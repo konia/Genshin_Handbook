@@ -24,3 +24,15 @@ export const status = {
     message: 'token 已过期'
   }
 };
+
+export enum NAVIGATION {
+  DASHBOARD = 0,
+  CHARACTERS = 1,
+  ARTIFACTS = 2
+}
+
+export const LANGUAGE = {
+  en: 'English',
+  ja: '日本語',
+  zh: '简体中文'
+};
