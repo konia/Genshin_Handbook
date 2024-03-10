@@ -8,22 +8,22 @@ import { cn } from '@/lib/utils';
 
 export default function MainNav({ content, className }: { content: string[]; className: string }) {
   const pathname = usePathname();
-  const params = useParams();
+  const { locale } = useParams();
   const routes = [
     {
-      path: `/${params.locale}/dashboard`,
+      path: `/${locale}/dashboard`,
       name: content[NAVIGATION.DASHBOARD],
-      active: pathname == `/${params.locale}/dashboard`
+      active: pathname == `/${locale}/dashboard`
     },
     {
-      path: `/${params.locale}/characters`,
+      path: `/${locale}/characters`,
       name: content[NAVIGATION.CHARACTERS],
       active: pathname.includes('characters')
     },
     {
-      path: `/${params.locale}/artifacts`,
+      path: `/${locale}/artifacts`,
       name: content[NAVIGATION.ARTIFACTS],
-      active: pathname == `/${params.locale}/artifacts`
+      active: pathname == `/${locale}/artifacts`
     }
   ];
   return (

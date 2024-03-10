@@ -1,9 +1,12 @@
 'use client';
 import Link from 'next/link';
+import { useParams } from 'next/navigation';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useRequest } from 'alova';
 
+import { http } from '@/api/http';
 import { Icons } from '@/components/icons';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -29,10 +32,25 @@ export default function SignUnPage() {
   const [isValidLoading, setIsValidLoading] = useState<boolean>(false);
   const [isValid, setIsValid] = useState<boolean>(false);
 
+  const { locale } = useParams();
+
+  const getUser = useRequest(({ email }) => http.Get(`${locale}/api/users`, { email }), {
+    immediate: false
+  });
+
+  getUser.onComplete(({ data }) => {
+    console.log('status', data);
+  });
+
+  const onValidateEmail = (value: string) => {
+    console.log('Email', value);
+    console.log('params.locale', locale);
+
+    getUser.send({ email: value });
+  };
+
   const onSubmit = (value: SignUpFormValues) => {
     console.log(value);
-
-    // event.preventDefault();
     setIsLoading(true);
 
     setTimeout(() => {
@@ -68,29 +86,30 @@ export default function SignUnPage() {
                           }}
                           onBlur={() => {
                             if (!fieldState.invalid) {
-                              setIsValidLoading(true);
-                              setTimeout(() => {
-                                setIsValidLoading(false);
-                                setIsValid(true);
-                                if (Math.floor(Math.random() * 10) % 2) {
-                                  setIsValid(false);
-                                  form.setError('email', { message: '邮箱重复' });
-                                } else {
-                                  setIsValid(true);
-                                  form.clearErrors('email');
-                                }
-                              }, 3000);
+                              onValidateEmail(field.value);
+                              // setIsValidLoading(true);
+                              // setTimeout(() => {
+                              //   setIsValidLoading(false);
+                              //   setIsValid(true);
+                              //   if (Math.floor(Math.random() * 10) % 2) {
+                              //     setIsValid(false);
+                              //     form.setError('email', { message: '邮箱重复' });
+                              //   } else {
+                              //     setIsValid(true);
+                              //     form.clearErrors('email');
+                              //   }
+                              // }, 3000);
                             }
                           }}
                         />
                       </FormControl>
-                      <section className="absolute right-[8px] top-[34px] h-4 w-4">
+                      <section className="absolute right-[8px] top-[35px] h-4 w-4">
                         {isValidLoading ? (
                           <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
                         ) : isValid ? (
                           <Icons.check className="h-4 w-4  text-green-500" />
                         ) : (
-                          <Icons.cross className="h-4 w-4  text-red-500" />
+                          form.getValues('email') !== '' && <Icons.cross className="h-4 w-4  text-red-500" />
                         )}
                       </section>
                       <FormDescription>We recommend using your work email</FormDescription>

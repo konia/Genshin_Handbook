@@ -14,7 +14,7 @@ export const Instance = createAlova({
     onSuccess: async (response: Response) => {
       const json = await response.json();
       if (json.code == 200) {
-        return json;
+        return json.data;
       } else {
         // 抛出错误或返回reject状态的Promise实例时，此请求将抛出错误
         throw new Error(json.message);
@@ -27,8 +27,10 @@ export const Instance = createAlova({
   }
 });
 
-export const service = {
+export const http = {
   Get(url: string, params: object) {
+    console.log('params', params);
+
     return Instance.Get(url, {
       headers,
       params,

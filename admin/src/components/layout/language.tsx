@@ -1,24 +1,55 @@
-import { useLocale } from 'next-intl';
-import React from 'react';
+'use client';
+import { useParams, usePathname, useRouter } from 'next/navigation';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 
+import { Form, FormControl, FormField, FormItem } from '@/components/ui/form';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { LANGUAGE } from '@/constants';
+import { LanguageFormSchema, type LanguageFormValues } from '@/types';
 
 export default function Language() {
-  const locale = useLocale();
-  console.log('locale', locale);
+  const router = useRouter();
+  const { locale } = useParams();
+  const pathname = usePathname();
+
+  const form = useForm<LanguageFormValues>({
+    resolver: zodResolver(LanguageFormSchema),
+    defaultValues: { language: locale as string }
+  });
 
   return (
-    <Select>
-      <SelectTrigger className="w-[100px] bg-white">
-        <SelectValue placeholder="Language" />
-      </SelectTrigger>
-      <SelectContent>
-        <SelectGroup>
-          <SelectItem value="en">English</SelectItem>
-          <SelectItem value="jp">日本語</SelectItem>
-          <SelectItem value="zh">简体中文</SelectItem>
-        </SelectGroup>
-      </SelectContent>
-    </Select>
+    <Form {...form}>
+      <FormField
+        control={form.control}
+        name="language"
+        render={({ field }) => (
+          <FormItem>
+            <Select
+              onValueChange={(lang) => {
+                router.replace(`${pathname.replace(locale as string, lang)}`);
+                field.onChange(lang);
+              }}
+              value={field.value}
+            >
+              <FormControl>
+                <SelectTrigger className="w-[120px] bg-white">
+                  <SelectValue placeholder="Language" />
+                </SelectTrigger>
+              </FormControl>
+              <SelectContent>
+                <SelectGroup>
+                  {LANGUAGE.map((lang) => (
+                    <SelectItem key={lang.value} value={lang.value}>
+                      {lang.label}
+                    </SelectItem>
+                  ))}
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+          </FormItem>
+        )}
+      ></FormField>
+    </Form>
   );
 }

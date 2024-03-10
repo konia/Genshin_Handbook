@@ -25,16 +25,17 @@ export async function POST(req: NextRequest) {
     });
   }
 }
-export async function GET() {
-  // const user = await req.json();
-  // console.log(window.crypto);
 
-  const userData = await prismaDB.user.findMany();
+export async function GET(req: Request) {
+  const { searchParams } = new URL(req.url);
+  const userData = await prismaDB.user.findFirst({
+    where: { email: searchParams.get('email') as string }
+  });
   console.log('11', userData);
 
   return NextResponse.json({
     code: 200,
-    data: userData
+    data: userData || {}
   });
 }
 

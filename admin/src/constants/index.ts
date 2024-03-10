@@ -31,8 +31,17 @@ export enum NAVIGATION {
   ARTIFACTS = 2
 }
 
-export const LANGUAGE = {
-  en: 'English',
-  ja: '日本語',
-  zh: '简体中文'
-};
+export const LANGUAGE = [
+  {
+    label: '🇺🇸 English',
+    value: 'en'
+  },
+  {
+    label: '🇯🇵 日本語',
+    value: 'ja'
+  },
+  {
+    label: '🇨🇳 简体中文',
+    value: 'zh'
+  }
+];

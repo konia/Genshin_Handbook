@@ -16,7 +16,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 
 export default function UserNav() {
-  const params = useParams();
+  const { locale } = useParams();
 
   return (
     <DropdownMenu>
@@ -37,19 +37,19 @@ export default function UserNav() {
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <DropdownMenuItem className="px-0 py-0">
-            <Link href={`/${params.locale}/profile`} className="block w-full px-2 py-1.5">
+            <Link href={`/${locale}/profile`} className="block w-full px-2 py-1.5">
               Profile
             </Link>
           </DropdownMenuItem>
           <DropdownMenuItem className="px-0 py-0">
-            <Link href={`/${params.locale}/settings`} className="block w-full px-2 py-1.5">
+            <Link href={`/${locale}/settings`} className="block w-full px-2 py-1.5">
               Settings
             </Link>
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuItem className="px-0 py-0">
-          <Link href={`/${params.locale}/profile`} className="block w-full px-2 py-1.5">
+          <Link href={`/${locale}/profile`} className="block w-full px-2 py-1.5">
             Log out
           </Link>
         </DropdownMenuItem>

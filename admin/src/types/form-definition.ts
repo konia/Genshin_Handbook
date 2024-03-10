@@ -54,3 +54,7 @@ export const SignUpFormSchema = z.object({
     .default(false)
     .refine((data) => data === true)
 });
+
+export const LanguageFormSchema = z.object({
+  language: z.string()
+});
