@@ -11,7 +11,7 @@ export default function AuthenticationLayout({ children }: { children: ReactNode
             alt="logo"
             width={256}
             height={256}
-            className="absolute left-3 z-10 h-auto w-1/5 invert md:-top-5 lg:-top-10"
+            className="absolute -top-5 left-3 z-10 h-auto w-36 invert"
           />
           <Image
             src="/images/background.jpg"
@@ -22,7 +22,7 @@ export default function AuthenticationLayout({ children }: { children: ReactNode
             priority
           />
         </div>
-        <blockquote className="font-genshin relative mb-4 ml-auto mr-4 mt-auto w-[300px]">
+        <blockquote className="font-genshin relative mb-4 ml-auto mr-4 mt-auto w-[350px]">
           <p className="text-right text-4xl font-semibold uppercase">
             When the enemy tells you you&apos;re going to fail at something, do it anyway. nothing is more frightening
             than never changing.
