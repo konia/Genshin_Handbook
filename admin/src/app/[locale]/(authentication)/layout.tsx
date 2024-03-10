@@ -1,8 +1,6 @@
 import Image from 'next/image';
 import { ReactNode } from 'react';
 
-import '@/styles/globals.css';
-
 export default function AuthenticationLayout({ children }: { children: ReactNode }) {
   return (
     <main className="relative grid h-full flex-col items-center justify-center bg-background lg:grid-cols-2 lg:px-0">
