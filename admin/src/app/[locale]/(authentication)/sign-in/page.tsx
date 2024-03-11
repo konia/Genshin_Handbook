@@ -1,5 +1,6 @@
 'use client';
 import Link from 'next/link';
+import { useParams } from 'next/navigation';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -15,6 +16,7 @@ import { Label } from '@/components/ui/label';
 import { SignInFormSchema, SignInFormValues } from '@/types';
 
 export default function SignInPage() {
+  const { locale } = useParams();
   const form = useForm<SignInFormValues>({
     resolver: zodResolver(SignInFormSchema),
     defaultValues: {
@@ -155,7 +157,7 @@ export default function SignInPage() {
         </div>
         <div className="px-4 text-center text-sm text-muted-foreground">
           Don&apos;t have an account?{' '}
-          <Link href="/sign-up" className="font-medium underline hover:text-primary">
+          <Link href={`/${locale}/sign-up`} className="font-medium underline hover:text-primary">
             Sign Up
           </Link>
         </div>

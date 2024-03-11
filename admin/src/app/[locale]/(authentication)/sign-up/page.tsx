@@ -38,24 +38,37 @@ export default function SignUnPage() {
     immediate: false
   });
 
+  const createUser = useRequest((value: SignUpFormValues) => http.Post(`${locale}/api/users`, value), {
+    immediate: false
+  });
+
   getUser.onComplete(({ data }) => {
     console.log('status', data);
+    setIsValidLoading(false);
+    if (JSON.stringify(data) !== '{}') {
+      setIsValid(false);
+      form.setError('email', { message: 'Email is duplicated' });
+    } else {
+      setIsValid(true);
+      form.clearErrors('email');
+    }
+  });
+
+  createUser.onComplete(({ data }) => {
+    console.log('status', data);
+    setIsValidLoading(false);
   });
 
   const onValidateEmail = (value: string) => {
-    console.log('Email', value);
-    console.log('params.locale', locale);
-
+    setIsValidLoading(true);
     getUser.send({ email: value });
   };
 
   const onSubmit = (value: SignUpFormValues) => {
     console.log(value);
-    setIsLoading(true);
 
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 3000);
+    // setIsLoading(true);
+    createUser.send(value);
   };
   return (
     <div>
@@ -85,20 +98,8 @@ export default function SignUnPage() {
                             field.onChange(event.target.value);
                           }}
                           onBlur={() => {
-                            if (!fieldState.invalid) {
+                            if (!fieldState.invalid && field.value) {
                               onValidateEmail(field.value);
-                              // setIsValidLoading(true);
-                              // setTimeout(() => {
-                              //   setIsValidLoading(false);
-                              //   setIsValid(true);
-                              //   if (Math.floor(Math.random() * 10) % 2) {
-                              //     setIsValid(false);
-                              //     form.setError('email', { message: '邮箱重复' });
-                              //   } else {
-                              //     setIsValid(true);
-                              //     form.clearErrors('email');
-                              //   }
-                              // }, 3000);
                             }
                           }}
                         />

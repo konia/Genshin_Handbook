@@ -14,46 +14,55 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu';
+import { SessionStorage } from '@/lib/utils';
 
-export default function UserNav() {
+export default function UserNav({ content }: { content: string }) {
   const { locale } = useParams();
-
+  SessionStorage.get('user');
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant="ghost" className="relative h-8 w-8 rounded-full">
-          <Avatar className="h-8 w-8">
-            <AvatarFallback>SC</AvatarFallback>
-          </Avatar>
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-56" align="end" forceMount>
-        <DropdownMenuLabel className="font-normal">
-          <div className="flex flex-col space-y-1">
-            <p className="text-sm font-medium leading-none">shadcn</p>
-            <p className="text-xs leading-none text-muted-foreground">m@example.com</p>
-          </div>
-        </DropdownMenuLabel>
-        <DropdownMenuSeparator />
-        <DropdownMenuGroup>
-          <DropdownMenuItem className="px-0 py-0">
-            <Link href={`/${locale}/profile`} className="block w-full px-2 py-1.5">
-              Profile
-            </Link>
-          </DropdownMenuItem>
-          <DropdownMenuItem className="px-0 py-0">
-            <Link href={`/${locale}/settings`} className="block w-full px-2 py-1.5">
-              Settings
-            </Link>
-          </DropdownMenuItem>
-        </DropdownMenuGroup>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem className="px-0 py-0">
-          <Link href={`/${locale}/profile`} className="block w-full px-2 py-1.5">
-            Log out
-          </Link>
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
+    <>
+      {SessionStorage.get('user') ? (
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost" className="relative h-8 w-8 rounded-full">
+              <Avatar className="h-8 w-8">
+                <AvatarFallback>SC</AvatarFallback>
+              </Avatar>
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent className="w-56" align="end" forceMount>
+            <DropdownMenuLabel className="font-normal">
+              <div className="flex flex-col space-y-1">
+                <p className="text-sm font-medium leading-none">shadcn</p>
+                <p className="text-xs leading-none text-muted-foreground">m@example.com</p>
+              </div>
+            </DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            <DropdownMenuGroup>
+              <DropdownMenuItem className="px-0 py-0">
+                <Link href={`/${locale}/profile`} className="block w-full px-2 py-1.5">
+                  Profile
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem className="px-0 py-0">
+                <Link href={`/${locale}/settings`} className="block w-full px-2 py-1.5">
+                  Settings
+                </Link>
+              </DropdownMenuItem>
+            </DropdownMenuGroup>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem className="px-0 py-0">
+              <Link href={`/${locale}/profile`} className="block w-full px-2 py-1.5">
+                Log out
+              </Link>
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      ) : (
+        <Link href={`/${locale}/sign-in`} className="text-sm text-white">
+          {content}
+        </Link>
+      )}
+    </>
   );
 }

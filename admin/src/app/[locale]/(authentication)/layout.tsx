@@ -14,7 +14,7 @@ export default function AuthenticationLayout({ children }: { children: ReactNode
             className="absolute left-4 top-3 z-10 invert"
           />
           <video className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2" autoPlay loop muted>
-            <source src="/images/GENSHIN IMPACT ELEMENTS 1.0.mp4" type="video/mp4" />
+            <source src="/images/GENSHIN IMPACT ELEMENTS 2.0.mp4" type="video/mp4" />
           </video>
         </div>
       </div>

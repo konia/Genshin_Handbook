@@ -1,16 +1,60 @@
 import { NextRequest, NextResponse } from 'next/server';
 
 import prismaDB from '@/lib/prisma';
+import { SessionStorage } from '@/lib/utils';
 
-export async function POST(req: NextRequest) {
+export async function PATCH(req: NextRequest, { params }: { params: { email: string } }) {
   try {
-    const userForm = await req.json();
-    const user = await prismaDB.user.create({
+    const { userId } = SessionStorage.get('user');
+    const { name } = await req.json();
+    if (!userId) {
+      return NextResponse.json({ error: 'Unauthenticated' }, { status: 403 });
+    }
+
+    if (!name) {
+      return NextResponse.json({ error: 'Name is required', code: 100 });
+    }
+
+    if (!params.email) {
+      return NextResponse.json({ error: 'Email is required', code: 110 });
+    }
+
+    const store = await prismaDB.user.updateMany({
+      where: {
+        id: params.email,
+        userId
+      },
       data: {
-        ...userForm,
-        role: 'ADMIN'
+        name
       }
     });
-    return NextResponse.json({ code: 200, ...user });
-  } catch (error) {}
+    return NextResponse.json({ code: 200, ...store });
+  } catch (error) {
+    console.log('[STORE_PATCH]', error);
+    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+  }
+}
+export async function DELETE(req: NextRequest, { params }: { params: { email: string } }) {
+  try {
+    const { userId } = SessionStorage.get('user');
+
+    if (!userId) {
+      return NextResponse.json({ error: 'Unauthenticated' }, { status: 403 });
+    }
+
+    if (!params.email) {
+      return NextResponse.json({ error: 'Store is required', code: 110 });
+    }
+
+    const store = await prismaDB.store.deleteMany({
+      where: {
+        id: params.email,
+        userId
+      }
+    });
+    return NextResponse.json({ code: 200, ...store });
+  } catch (error) {
+    console.log('[STORE_DELETE]', error);
+    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+  }
 }

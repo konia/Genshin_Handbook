@@ -38,3 +38,5 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 pnpm prisma generate
 
 pnpm prisma db push
+
+API Router cant not connect should run pnpm prisma generate

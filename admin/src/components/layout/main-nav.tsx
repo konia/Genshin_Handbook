@@ -1,6 +1,6 @@
 'use client';
 import Link from 'next/link';
-import { useParams, usePathname } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import React from 'react';
 
 import { NAVIGATION } from '@/constants';
@@ -8,22 +8,21 @@ import { cn } from '@/lib/utils';
 
 export default function MainNav({ content, className }: { content: string[]; className: string }) {
   const pathname = usePathname();
-  const { locale } = useParams();
   const routes = [
     {
-      path: `/${locale}/dashboard`,
+      path: `dashboard`,
       name: content[NAVIGATION.DASHBOARD],
-      active: pathname == `/${locale}/dashboard`
+      active: pathname.includes('dashboard')
     },
     {
-      path: `/${locale}/characters`,
+      path: `characters`,
       name: content[NAVIGATION.CHARACTERS],
       active: pathname.includes('characters')
     },
     {
-      path: `/${locale}/artifacts`,
+      path: `artifacts`,
       name: content[NAVIGATION.ARTIFACTS],
-      active: pathname == `/${locale}/artifacts`
+      active: pathname.includes('artifacts')
     }
   ];
   return (

@@ -37,13 +37,13 @@ export const http = {
       timeout
     });
   },
-  Post(url: string, data: object, params: object) {
+  Post(url: string, data: object, params?: object) {
     return Instance.Post(url, data, { params });
   },
-  Patch(url: string, data: object, params: object) {
+  Patch(url: string, data: object, params?: object) {
     return Instance.Patch(url, data, { params });
   },
-  Delete(url: string, data: object, params: object) {
+  Delete(url: string, data: object, params?: object) {
     return Instance.Delete(url, data, { params });
   }
 };
