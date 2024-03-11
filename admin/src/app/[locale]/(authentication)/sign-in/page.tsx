@@ -1,6 +1,6 @@
 'use client';
 import Link from 'next/link';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -13,10 +13,10 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Form, FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { SignInFormSchema, SignInFormValues } from '@/types';
+import { SessionStorage } from '@/lib/utils';
+import { SignInFormSchema, SignInFormValues, UserResponse } from '@/types';
 
 export default function SignInPage() {
-  const { locale } = useParams();
   const form = useForm<SignInFormValues>({
     resolver: zodResolver(SignInFormSchema),
     defaultValues: {
@@ -25,48 +25,30 @@ export default function SignInPage() {
     }
   });
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const getUser = useRequest((value: SignInFormValues) => Instance.Post('/api/users', value), {
+  const router = useRouter();
+  const { locale } = useParams();
+
+  const getUser = useRequest((value: SignInFormValues) => Instance.Post('/api/users/login', value), {
     immediate: false
   });
 
-  async function encryptMessage(key: CryptoKey, encoded: Uint8Array) {
-    // The iv must never be reused with a given key.
-    const iv = window.crypto.getRandomValues(new Uint8Array(12));
-    const ciphertext = await window.crypto.subtle.encrypt(
-      {
-        name: 'AES-GCM',
-        iv: iv
-      },
-      key,
-      encoded
-    );
-
-    return ciphertext;
-  }
+  getUser.onComplete(({ data }) => {
+    const user = data as UserResponse;
+    setIsLoading(false);
+    if (JSON.stringify(user) == '{}') {
+      form.setError('email', { message: 'Username or password is incorrect' });
+    } else {
+      SessionStorage.set('user', { email: user.email, name: user.name, role: user.role });
+      router.replace(`/${locale}/dashboard`);
+    }
+  });
 
   const onSubmit = async (value: SignInFormValues) => {
-    // event.preventDefault();
     setIsLoading(true);
-    const data = new TextEncoder().encode(value.password);
-    const privateKey = await publicKey();
-    const signature = await window.crypto.subtle.sign(
-      {
-        name: 'AES-GCM',
-        saltLength: 32
-      },
-      privateKey,
-      data
-    );
-
-    console.log('signature', signature);
-
     getUser.send({
-      email: value.email
-      // password: data
+      email: value.email,
+      password: value.password
     });
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 3000);
   };
 
   return (

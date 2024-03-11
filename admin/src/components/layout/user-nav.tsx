@@ -1,7 +1,7 @@
 'use client';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
-import React from 'react';
+import React, { useMemo } from 'react';
 
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
@@ -18,23 +18,34 @@ import { SessionStorage } from '@/lib/utils';
 
 export default function UserNav({ content }: { content: string }) {
   const { locale } = useParams();
-  SessionStorage.get('user');
+  const user = SessionStorage.get('user') || null;
+  const nickName = useMemo(() => {
+    if (user) {
+      return user.name
+        .split(' ')
+        .map((str: string) => str.charAt(0))
+        .join('');
+    }
+  }, [user]);
+  const onLogOut = () => {
+    SessionStorage.remove('user');
+  };
   return (
     <>
-      {SessionStorage.get('user') ? (
+      {user ? (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" className="relative h-8 w-8 rounded-full">
               <Avatar className="h-8 w-8">
-                <AvatarFallback>SC</AvatarFallback>
+                <AvatarFallback>{nickName}</AvatarFallback>
               </Avatar>
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-56" align="end" forceMount>
             <DropdownMenuLabel className="font-normal">
               <div className="flex flex-col space-y-1">
-                <p className="text-sm font-medium leading-none">shadcn</p>
-                <p className="text-xs leading-none text-muted-foreground">m@example.com</p>
+                <p className="text-sm font-medium leading-none">{user.name}</p>
+                <p className="text-xs leading-none text-muted-foreground">{user.email}</p>
               </div>
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
@@ -52,7 +63,7 @@ export default function UserNav({ content }: { content: string }) {
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuItem className="px-0 py-0">
-              <Link href={`/${locale}/profile`} className="block w-full px-2 py-1.5">
+              <Link href="" className="block w-full px-2 py-1.5" onClick={onLogOut}>
                 Log out
               </Link>
             </DropdownMenuItem>

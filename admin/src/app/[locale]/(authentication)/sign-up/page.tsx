@@ -1,6 +1,6 @@
 'use client';
 import Link from 'next/link';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -13,7 +13,7 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { SignUpFormSchema, SignUpFormValues } from '@/types';
+import { SignUpFormSchema, SignUpFormValues, UserResponse } from '@/types';
 
 export default function SignUnPage() {
   const form = useForm<SignUpFormValues>({
@@ -25,7 +25,8 @@ export default function SignUnPage() {
       passwordForm: {
         password: '',
         confirm: ''
-      }
+      },
+      isAgree: false
     }
   });
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -33,6 +34,7 @@ export default function SignUnPage() {
   const [isValid, setIsValid] = useState<boolean>(false);
 
   const { locale } = useParams();
+  const router = useRouter();
 
   const getUser = useRequest(({ email }) => http.Get(`${locale}/api/users`, { email }), {
     immediate: false
@@ -43,7 +45,6 @@ export default function SignUnPage() {
   });
 
   getUser.onComplete(({ data }) => {
-    console.log('status', data);
     setIsValidLoading(false);
     if (JSON.stringify(data) !== '{}') {
       setIsValid(false);
@@ -55,8 +56,11 @@ export default function SignUnPage() {
   });
 
   createUser.onComplete(({ data }) => {
-    console.log('status', data);
-    setIsValidLoading(false);
+    setIsLoading(false);
+    const user = data as UserResponse;
+    if (user && JSON.stringify(user) !== '{}') {
+      router.replace(`/${locale}/sign-in`);
+    }
   });
 
   const onValidateEmail = (value: string) => {
@@ -65,9 +69,7 @@ export default function SignUnPage() {
   };
 
   const onSubmit = (value: SignUpFormValues) => {
-    console.log(value);
-
-    // setIsLoading(true);
+    setIsLoading(true);
     createUser.send(value);
   };
   return (
@@ -91,13 +93,14 @@ export default function SignUnPage() {
                         <Input
                           id="email"
                           type="email"
-                          disabled={isLoading}
+                          disabled={isLoading || isValidLoading}
                           {...field}
                           onChange={(event) => {
                             form.trigger('email');
                             field.onChange(event.target.value);
                           }}
                           onBlur={() => {
+                            console.log(fieldState.invalid);
                             if (!fieldState.invalid && field.value) {
                               onValidateEmail(field.value);
                             }
@@ -166,7 +169,7 @@ export default function SignUnPage() {
                       <FormLabel>Password</FormLabel>
                       <FormControl>
                         <Input
-                          id="password"
+                          id="passwordForm.password"
                           type="password"
                           autoCapitalize="none"
                           autoCorrect="off"
@@ -186,7 +189,7 @@ export default function SignUnPage() {
                       <FormLabel>Confirm your Password</FormLabel>
                       <FormControl>
                         <Input
-                          id="confirm"
+                          id="passwordForm.confirm"
                           type="password"
                           autoCapitalize="none"
                           autoCorrect="off"
@@ -248,7 +251,7 @@ export default function SignUnPage() {
           </div>
           <div className="px-4 text-center text-sm text-muted-foreground">
             Have an account?{' '}
-            <Link href="/sign-in" className="font-medium underline hover:text-primary">
+            <Link href={`/${locale}/sign-in`} className="font-medium underline hover:text-primary">
               Sign In Now
             </Link>
           </div>
