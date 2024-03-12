@@ -34,27 +34,3 @@ export async function PATCH(req: NextRequest, { params }: { params: { email: str
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
   }
 }
-export async function DELETE(req: NextRequest, { params }: { params: { email: string } }) {
-  try {
-    const { userId } = SessionStorage.get('user');
-
-    if (!userId) {
-      return NextResponse.json({ error: 'Unauthenticated' }, { status: 403 });
-    }
-
-    if (!params.email) {
-      return NextResponse.json({ error: 'Store is required', code: 110 });
-    }
-
-    const store = await prismaDB.store.deleteMany({
-      where: {
-        id: params.email,
-        userId
-      }
-    });
-    return NextResponse.json({ code: 200, ...store });
-  } catch (error) {
-    console.log('[STORE_DELETE]', error);
-    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
-  }
-}

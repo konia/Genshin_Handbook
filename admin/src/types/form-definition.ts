@@ -58,3 +58,10 @@ export const SignUpFormSchema = z.object({
 export const LanguageFormSchema = z.object({
   language: z.string()
 });
+
+export const FilterFormSchema = z.object({
+  vision: z.string(),
+  weapon: z.string(),
+  region: z.string(),
+  quality: z.string()
+});

@@ -10,9 +10,12 @@ export const SessionStorage = {
     sessionStorage.setItem(key, JSON.stringify(value));
   },
   get(key: string) {
-    const value = sessionStorage.getItem(key);
-    if (value) {
-      return JSON.parse(value);
+    if (typeof window !== 'undefined') {
+      // Perform sessionStorage action
+      const value = sessionStorage.getItem(key) || '';
+      if (value) {
+        return JSON.parse(value);
+      }
     }
   },
   remove(key: string) {
