@@ -1,6 +1,7 @@
 'use client';
 import Link from 'next/link';
 import { useParams, useRouter } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -16,12 +17,12 @@ import { Label } from '@/components/ui/label';
 import { SignUpFormSchema, SignUpFormValues, UserResponse } from '@/types';
 
 export default function SignUnPage() {
+  const t = useTranslations('SIGN');
   const form = useForm<SignUpFormValues>({
     resolver: zodResolver(SignUpFormSchema),
     defaultValues: {
       email: '',
-      firstName: '',
-      lastName: '',
+      userName: '',
       passwordForm: {
         password: '',
         confirm: ''
@@ -77,8 +78,8 @@ export default function SignUnPage() {
       <section className="p-8">
         <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
           <div className="flex flex-col space-y-2 text-center">
-            <h1 className="font-genshin text-2xl font-semibold tracking-tight">Create an account</h1>
-            <p className="text-sm text-muted-foreground">Enter your email below to create your account</p>
+            <h1 className="font-genshin text-2xl font-semibold tracking-tight">{t('SIGN_UP_TITLE')}</h1>
+            <p className="text-sm text-muted-foreground">{t('SIGN_UP_TIP')}</p>
           </div>
           <div className="grid gap-6">
             <Form {...form}>
@@ -88,7 +89,7 @@ export default function SignUnPage() {
                   name="email"
                   render={({ field, fieldState }) => (
                     <FormItem className="relative">
-                      <FormLabel>Email Address</FormLabel>
+                      <FormLabel>{t('EMAIL_ADDRESS')}</FormLabel>
                       <FormControl>
                         <Input
                           id="email"
@@ -116,40 +117,20 @@ export default function SignUnPage() {
                           form.getValues('email') !== '' && <Icons.cross className="h-4 w-4  text-red-500" />
                         )}
                       </section>
-                      <FormDescription>We recommend using your work email</FormDescription>
+                      <FormDescription>{t('EMAIL_ADDRESS_TIP')}</FormDescription>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
                 <FormField
                   control={form.control}
-                  name="firstName"
+                  name="userName"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>First Name</FormLabel>
+                      <FormLabel>{t('USER_NAME')}</FormLabel>
                       <FormControl>
                         <Input
-                          id="firstName"
-                          type="text"
-                          autoCapitalize="none"
-                          autoCorrect="off"
-                          disabled={isLoading}
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="lastName"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Last Name</FormLabel>
-                      <FormControl>
-                        <Input
-                          id="lastName"
+                          id="userName"
                           type="text"
                           autoCapitalize="none"
                           autoCorrect="off"
@@ -166,7 +147,7 @@ export default function SignUnPage() {
                   name="passwordForm.password"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Password</FormLabel>
+                      <FormLabel>{t('PASSWORD')}</FormLabel>
                       <FormControl>
                         <Input
                           id="passwordForm.password"
@@ -186,7 +167,7 @@ export default function SignUnPage() {
                   name="passwordForm.confirm"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Confirm your Password</FormLabel>
+                      <FormLabel>{t('CONFIRM_PASSWORD')}</FormLabel>
                       <FormControl>
                         <Input
                           id="passwordForm.confirm"
@@ -210,15 +191,18 @@ export default function SignUnPage() {
                         <div className="flex items-center space-x-2 text-sm">
                           <Checkbox id="rememberMe" checked={field.value} onCheckedChange={field.onChange} />
                           <Label htmlFor="rememberMe">
-                            I accept the{' '}
-                            <Link href="/terms" className="underline underline-offset-4 hover:text-primary">
-                              Terms of Service
-                            </Link>{' '}
-                            and{' '}
-                            <Link href="/privacy" className="underline underline-offset-4 hover:text-primary">
-                              Privacy Policy
-                            </Link>
-                            .
+                            {t.rich('SIGN_UP_POLICY', {
+                              Terms: (text) => (
+                                <Link href="/terms" className="font-medium underline hover:text-primary">
+                                  {text}
+                                </Link>
+                              ),
+                              Policy: (text) => (
+                                <Link href="/privacy" className="font-medium underline hover:text-primary">
+                                  {text}
+                                </Link>
+                              )
+                            })}
                           </Label>
                         </div>
                       </FormControl>
@@ -227,7 +211,7 @@ export default function SignUnPage() {
                 />
                 <Button type="submit" disabled={isLoading || !form.formState.isValid} className="w-full">
                   {isLoading && <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />}
-                  Create account
+                  {t('SIGN_UP')}
                 </Button>
               </form>
             </Form>
@@ -237,7 +221,7 @@ export default function SignUnPage() {
                 <span className="w-full border-t" />
               </div>
               <div className="relative flex justify-center text-xs uppercase">
-                <span className="bg-background px-2 text-muted-foreground">Or continue with</span>
+                <span className="bg-background px-2 text-muted-foreground">{t('CONTINUE_WITH')}</span>
               </div>
             </div>
             <Button variant="outline" type="button" disabled={isLoading}>
@@ -250,10 +234,13 @@ export default function SignUnPage() {
             </Button>
           </div>
           <div className="px-4 text-center text-sm text-muted-foreground">
-            Have an account?{' '}
-            <Link href={`/${locale}/sign-in`} className="font-medium underline hover:text-primary">
-              Sign In Now
-            </Link>
+            {t.rich('GOTO_SIGN_UP', {
+              Link: (text) => (
+                <Link href={`/${locale}/sign-in`} className="font-medium underline hover:text-primary">
+                  {text}
+                </Link>
+              )
+            })}
           </div>
         </div>
       </section>

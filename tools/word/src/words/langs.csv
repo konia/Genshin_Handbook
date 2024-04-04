@@ -4,3 +4,19 @@ NAVIGATION.CHARACTERS,Characters,キャラ,角色
 NAVIGATION.ARTIFACTS,Artifacts,聖遺物,圣遗物
 NAVIGATION.SIGN_IN,Sign In,ログイン,登录
 NAVIGATION.SIGN_UP,Sign Up,新規登録,注册
+SIGN.SIGN_IN_TITLE,"Hi, Welcome to Genshin Lab",こんにちは、原神ラボへようこそ,您好，欢迎来到原神实验室
+SIGN.SIGN_UP_TITLE,"Create an account",アカウントを作成する,创建一个帐户
+SIGN.SIGN_UP_TIP,"Enter your email below to create your account",以下にメールアドレスを入力してアカウントを作成してください,在下面输入您的电子邮件以创建您的帐户
+SIGN.EMAIL_ADDRESS,Email Address,電子メール,电子邮件
+SIGN.EMAIL_ADDRESS_TIP,We recommend using your work email,仕事用メールを使用することをお勧めします,我们建议使用您的工作电子邮件
+SIGN.PASSWORD,Password,パスワード,密码
+SIGN.CONFIRM_PASSWORD,Confirm Password,パスワードを認証する,确认密码
+SIGN.USER_NAME,User Name,ユーザー名,用户名
+SIGN.SIGN_IN,Sign In with Email,電子メールでサインイン,使用电子邮件登录
+SIGN.SIGN_UP,Create account,アカウントを作成する,创建账户
+SIGN.REMEMBER_ME,Remember Me,私を覚えておいて,记住用户名
+SIGN.FORGOT_PASSWORD,Forgot Password,パスワードをお忘れですか,忘记密码
+SIGN.SIGN_UP_POLICY,I accept the <Terms>Terms of Service</Terms> and <Policy>Privacy Policy</Policy>.,<Terms>利用規約</Terms>と<Policy>プライバシーポリシー</Policy>に同意します。,我接受<Terms>服务条款</Terms>和<Policy>隐私政策</Policy>
+SIGN.CONTINUE_WITH,OR CONTINUE WITH,または続行してください,或 继续
+SIGN.GOTO_SIGN_IN,Have an account? <Link>Sign In Now</Link>,または続行してください,或 继续
+SIGN.GOTO_SIGN_UP,"Don\'t have an account? <Link>Sign Up</Link>","アカウントをお持ちでない場合は、 <Link>サインアップ</Link>","没有帐户？ <Link>点击这里注册</Link>"

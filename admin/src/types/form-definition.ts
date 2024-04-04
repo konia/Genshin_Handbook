@@ -7,8 +7,7 @@ export const SignInFormSchema = z.object({
 
 export const SignUpFormSchema = z.object({
   email: z.string().email({ message: 'Invalid email address' }),
-  firstName: z.string().min(1, { message: 'First name name is required' }),
-  lastName: z.string().min(1, { message: 'Last name is required' }),
+  userName: z.string().min(1, { message: 'User name is required' }),
   passwordForm: z
     .object({
       password: z.string().min(1, { message: 'Password is required' }),

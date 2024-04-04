@@ -12,7 +12,6 @@ export async function POST(req: NextRequest) {
       }
     });
     const password = compareSync(userForm.password, user?.password!);
-    console.log('password', password);
     return NextResponse.json({
       code: 200,
       data: password ? { email: user?.email, name: user?.name, role: user?.role } : {}

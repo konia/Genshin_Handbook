@@ -1,6 +1,7 @@
 'use client';
 import Link from 'next/link';
 import { useParams, useRouter } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -17,6 +18,8 @@ import { SessionStorage } from '@/lib/utils';
 import { SignInFormSchema, SignInFormValues, UserResponse } from '@/types';
 
 export default function SignInPage() {
+  const t = useTranslations('SIGN');
+
   const form = useForm<SignInFormValues>({
     resolver: zodResolver(SignInFormSchema),
     defaultValues: {
@@ -55,7 +58,7 @@ export default function SignInPage() {
     <section className="p-8">
       <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[450px]">
         <div className="flex flex-col space-y-2 text-center">
-          <h1 className="font-genshin text-2xl font-semibold tracking-tight">Hi, Welcome to Genshin Lab!</h1>
+          <h1 className="font-genshin text-2xl font-semibold tracking-tight">{t('SIGN_IN_TITLE')}!</h1>
           {/* <p className="text-sm text-muted-foreground">Enter your email below to create your account</p> */}
         </div>
         <div className="grid gap-6">
@@ -69,7 +72,7 @@ export default function SignInPage() {
                     <FormControl>
                       <Input
                         id="email"
-                        placeholder="Email"
+                        placeholder={t('EMAIL_ADDRESS')}
                         type="email"
                         autoCapitalize="none"
                         autoComplete="email"
@@ -90,7 +93,7 @@ export default function SignInPage() {
                     <FormControl>
                       <Input
                         id="password"
-                        placeholder="Password"
+                        placeholder={t('PASSWORD')}
                         type="password"
                         autoCapitalize="none"
                         autoComplete="email"
@@ -105,7 +108,7 @@ export default function SignInPage() {
               />
               <Button type="submit" disabled={isLoading} className="w-full">
                 {isLoading && <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />}
-                Sign In with Email
+                {t('SIGN_IN')}
               </Button>
             </form>
           </Form>
@@ -113,11 +116,11 @@ export default function SignInPage() {
             <div className="flex items-center space-x-2 ">
               <Checkbox id="rememberMe" />
               <Label htmlFor="rememberMe" className="font-normal">
-                Remember Me
+                {t('REMEMBER_ME')}
               </Label>
             </div>
             <Link href="/reset-password" className="text-sm">
-              Forgot Password?
+              {t('FORGOT_PASSWORD')}?
             </Link>
           </div>
           <div className="relative">
@@ -125,7 +128,7 @@ export default function SignInPage() {
               <span className="w-full border-t" />
             </div>
             <div className="relative flex justify-center text-xs uppercase">
-              <span className="bg-background px-2 text-muted-foreground">Or continue with</span>
+              <span className="bg-background px-2 text-muted-foreground">{t('CONTINUE_WITH')}</span>
             </div>
           </div>
           <Button variant="outline" type="button" disabled={isLoading}>
@@ -133,15 +136,18 @@ export default function SignInPage() {
               <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
             ) : (
               <Icons.gitHub className="mr-2 h-4 w-4" />
-            )}{' '}
+            )}
             GitHub
           </Button>
         </div>
         <div className="px-4 text-center text-sm text-muted-foreground">
-          Don&apos;t have an account?{' '}
-          <Link href={`/${locale}/sign-up`} className="font-medium underline hover:text-primary">
-            Sign Up
-          </Link>
+          {t.rich('GOTO_SIGN_UP', {
+            Link: (text) => (
+              <Link href={`/${locale}/sign-up`} className="font-medium underline hover:text-primary">
+                {text}
+              </Link>
+            )
+          })}
         </div>
       </div>
     </section>

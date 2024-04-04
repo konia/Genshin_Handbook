@@ -21,8 +21,7 @@ export async function PATCH(req: NextRequest, { params }: { params: { email: str
 
     const store = await prismaDB.user.updateMany({
       where: {
-        id: params.email,
-        userId
+        id: params.email
       },
       data: {
         name
@@ -31,6 +30,30 @@ export async function PATCH(req: NextRequest, { params }: { params: { email: str
     return NextResponse.json({ code: 200, ...store });
   } catch (error) {
     console.log('[STORE_PATCH]', error);
+    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+  }
+}
+
+export async function DELETE(req: NextRequest, { params }: { params: { email: string } }) {
+  try {
+    const { userId } = SessionStorage.get('user');
+
+    if (!userId) {
+      return NextResponse.json({ error: 'Unauthenticated' }, { status: 403 });
+    }
+
+    if (!params.email) {
+      return NextResponse.json({ error: 'Store is required', code: 110 });
+    }
+
+    const store = await prismaDB.user.deleteMany({
+      where: {
+        id: params.email
+      }
+    });
+    return NextResponse.json({ code: 200, ...store });
+  } catch (error) {
+    console.log('[STORE_DELETE]', error);
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
   }
 }
