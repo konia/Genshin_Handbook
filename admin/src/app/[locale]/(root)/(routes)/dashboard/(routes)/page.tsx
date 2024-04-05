@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 export default function SetupPage() {
   // const t = useTranslations('PROFILE');
   return (
-    <main className="mt-14 flex h-full">
+    <main className="flex min-h-[calc(100vh_-_theme(spacing.14))]">
       <Button variant="outline">111</Button>111
     </main>
   );

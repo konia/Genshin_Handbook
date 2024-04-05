@@ -4,6 +4,7 @@ export default {
     DASHBOARD: 'Dashboard',
     CHARACTERS: 'Characters',
     ARTIFACTS: 'Artifacts',
+    CONFIGURATION: 'Configuration',
     SIGN_IN: 'Sign In',
     SIGN_UP: 'Sign Up'
   },
@@ -24,5 +25,60 @@ export default {
     CONTINUE_WITH: 'OR CONTINUE WITH',
     GOTO_SIGN_IN: 'Have an account? <Link>Sign In Now</Link>',
     GOTO_SIGN_UP: "Don't have an account? <Link>Sign Up</Link>"
+  },
+  CONFIGURATION: {
+    TITLE: {
+      CHARACTERS: 'Characters',
+      ARTIFACTS: 'Artifacts'
+    },
+    SAVE: 'Save',
+    CHARACTERS: {
+      NAME: 'Characters Name',
+      TITLE: 'Title',
+      AFFILIATION: 'Affiliation',
+      CONSTELLATION: 'Constellation',
+      WEAPON: 'Weapon',
+      REGION: 'Region',
+      CHARACTER_VOICE: 'Character Voice',
+      VISION: 'Vision',
+      STAR: 'Star',
+      AVATAR: 'Avatar',
+      BIRTHDAY: 'Birthday'
+    }
+  },
+  CHARACTERS: {
+    YELAN: {
+      NAME: 'Yelan',
+      SLOGEN:
+        "A mysterious person who claims to work for the Ministry of Civil Affairs, but is a 'non-entity' on the Ministry of Civil Affairs' list.",
+      TITLE: 'Valley Orchid',
+      AFFILIATION: 'Yanshang Teahouse',
+      CONSTELLATION: 'Umbrabilis Orchis'
+    }
+  },
+  REGION: {
+    MONDSTADT: 'Mondstadt',
+    LIYUE: 'Liyue Harbor',
+    INAZUMA: 'Inazuma City',
+    SNEZHNAYA: 'Snezhnaya',
+    SUMERU: 'Sumeru',
+    FONTAINE: 'Fontaine',
+    NATLAN: 'Natlan'
+  },
+  WEAPONS: {
+    SWORD: 'Sword',
+    CLAYMORE: 'Claymore',
+    BOW: 'Bow',
+    CATALYST: 'Catalyst',
+    POLEARM: 'Polearm'
+  },
+  VISION: {
+    PYRO: 'Pyro',
+    HYDRO: 'Hydro',
+    DENDRO: 'Dendro',
+    ELECTRO: 'Electro',
+    ANEMO: 'Anemo',
+    CRYO: 'Cryo',
+    GEO: 'Geo'
   }
 };

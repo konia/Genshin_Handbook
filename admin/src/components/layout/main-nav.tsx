@@ -1,32 +1,51 @@
 'use client';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import React from 'react';
+import { useParams, usePathname } from 'next/navigation';
+import { useTranslations } from 'next-intl';
+import { useEffect, useState } from 'react';
 
-import { NAVIGATION } from '@/constants';
-import { cn } from '@/lib/utils';
+import { cn, SessionStorage } from '@/lib/utils';
 
-export default function MainNav({ content, className }: { content: string[]; className: string }) {
+export default function MainNav() {
   const pathname = usePathname();
-  const routes = [
+  const user = SessionStorage.get('user') || null;
+  const { locale } = useParams();
+  const t = useTranslations('NAVIGATION');
+
+  const [routes, setRoutes] = useState([
     {
-      path: `dashboard`,
-      name: content[NAVIGATION.DASHBOARD],
-      active: pathname.includes('dashboard')
+      path: `/${locale}/dashboard`,
+      name: t('DASHBOARD'),
+      active: pathname.includes(`/${locale}/dashboard`)
     },
     {
-      path: `characters`,
-      name: content[NAVIGATION.CHARACTERS],
-      active: pathname.includes('characters')
+      path: `/${locale}/characters`,
+      name: t('CHARACTERS'),
+      active: pathname.includes(`/${locale}/characters`)
     },
     {
-      path: `artifacts`,
-      name: content[NAVIGATION.ARTIFACTS],
-      active: pathname.includes('artifacts')
+      path: `/${locale}/artifacts`,
+      name: t('ARTIFACTS'),
+      active: pathname.includes(`/${locale}/artifacts`)
     }
-  ];
+  ]);
+
+  useEffect(() => {
+    if (user && user.role == 'ADMIN') {
+      setRoutes([
+        ...routes,
+        {
+          path: `/${locale}/configuration`,
+          name: t('CONFIGURATION'),
+          active: pathname.includes(`/${locale}/configuration`)
+        }
+      ]);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
-    <div className={cn('flex items-center space-x-4 ', className)}>
+    <div className="mx-8 flex items-center space-x-4">
       {routes.map((route) => (
         <Link
           href={route.path}

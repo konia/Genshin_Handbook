@@ -1,7 +1,8 @@
 'use client';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
-import React, { useMemo } from 'react';
+import { useTranslations } from 'next-intl';
+import React, { useEffect, useMemo, useState } from 'react';
 
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
@@ -16,10 +17,14 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { SessionStorage } from '@/lib/utils';
 
-export default function UserNav({ content }: { content: string }) {
+export default function UserNav() {
   const { locale } = useParams();
   const user = SessionStorage.get('user') || null;
-  const nickName = useMemo(() => {
+  // const [aliasName, setAliasName] = useState('');
+
+  const t = useTranslations('NAVIGATION');
+
+  const aliasName = useMemo(() => {
     if (user) {
       return user.name
         .split(' ')
@@ -27,6 +32,17 @@ export default function UserNav({ content }: { content: string }) {
         .join('');
     }
   }, [user]);
+
+  // useEffect(() => {
+  //   if (user) {
+  //     setAliasName(
+  //       user.name
+  //         .split(' ')
+  //         .map((str: string) => str.charAt(0))
+  //         .join('')
+  //     );
+  //   }
+  // }, []);
   const onLogOut = () => {
     SessionStorage.remove('user');
   };
@@ -35,11 +51,9 @@ export default function UserNav({ content }: { content: string }) {
       {user ? (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="relative h-8 w-8 rounded-full">
-              <Avatar className="h-8 w-8">
-                <AvatarFallback>{nickName}</AvatarFallback>
-              </Avatar>
-            </Button>
+            <Avatar className="h-8 w-8">
+              <AvatarFallback>{aliasName}</AvatarFallback>
+            </Avatar>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-56" align="end" forceMount>
             <DropdownMenuLabel className="font-normal">
@@ -70,9 +84,15 @@ export default function UserNav({ content }: { content: string }) {
           </DropdownMenuContent>
         </DropdownMenu>
       ) : (
-        <Link href={`/${locale}/sign-in`} className="text-sm text-white">
-          {content}
-        </Link>
+        <>
+          <Link href={`/${locale}/sign-in`} className="text-sm text-white">
+            {t('SIGN_IN')}
+          </Link>
+          <span className="text-sm text-white"> | </span>
+          <Link href={`/${locale}/sign-up`} className="text-sm text-white">
+            {t('SIGN_UP')}
+          </Link>
+        </>
       )}
     </>
   );

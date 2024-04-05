@@ -25,12 +25,6 @@ export const status = {
   }
 };
 
-export enum NAVIGATION {
-  DASHBOARD = 0,
-  CHARACTERS = 1,
-  ARTIFACTS = 2
-}
-
 export const LANGUAGE = [
   {
     label: '🇺🇸 English',

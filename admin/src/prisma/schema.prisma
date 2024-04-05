@@ -21,38 +21,19 @@ model User {
 model Character {
   id              String    @id @default(auto()) @map("_id") @db.ObjectId
   name            String
-  description     String
-  post            String
-  slogen          String
-  quality         Json[]     @db.Json
+  card            String
+  cover           String
+  star            String
   characterVoice  String[] 
-  voice           String[]
   avatar          String
   weapon          String
-  tags            String[]
-  profile         Profile?
-  region          Region     @relation(fields: [regionId], references: [id]) // 引用 `Profile` 的 `id`
-  regionId        String     @unique @db.ObjectId // 关系标量字段 (在上述 `@relation` 属性中使用)
-}
+  region          String
 
-model Profile {
-  id              String    @id @default(auto()) @map("_id") @db.ObjectId
-  character       Character @relation(fields: [characterId], references: [id])
-  characterId     String    @unique @db.ObjectId
   constellation   String    // 命之座
   vision          String    // 神之眼
   affiliation     String    //所属
   title           String    //称号
   birthday        String
-  avatar          String
-  card            String
-  cover           String
-}
-
-model Region {
-  id              String   @id @default(auto()) @map("_id") @db.ObjectId
-  name            String
-  character       Character?
 }
 
 enum Role {

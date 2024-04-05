@@ -6,7 +6,7 @@ export default function SetUpLayout({ children }: { children: React.ReactNode })
   return (
     <>
       <Header />
-      {children}
+      <section>{children}</section>
     </>
   );
 }
