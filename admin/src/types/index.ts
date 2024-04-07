@@ -23,6 +23,20 @@ export type UserResponse = {
   role: string;
 };
 
+export type CharactersResponse = {
+  id: string;
+  name: string;
+  star: string;
+  characterVoice: string[];
+  weapon: string;
+  region: string;
+  constellation: string;
+  vision: string;
+  affiliation: string;
+  title: string;
+  birthday: string;
+};
+
 export const REGION = {
   MONDSTADT: 'Mondstadt',
   LIYUE: 'Liyue Harbor',
@@ -48,20 +62,3 @@ export const VISION = {
   CRYO: 'cryo',
   GEO: 'geo'
 };
-// export type CharacterResponse = {
-//     id              String
-//   name            String
-//   description     String
-//   post            String
-//   slogen          String
-//   vision          String // 神之眼
-//   quality         String
-//   characterVoice  String[]
-//   voice           String[]
-//   avatar          String
-//   weapon          String
-//   tags            String[]
-//   profile         Profile?
-//   region          Region
-//   regionId        String
-// };

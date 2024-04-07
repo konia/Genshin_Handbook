@@ -19,41 +19,37 @@ import { SessionStorage } from '@/lib/utils';
 
 export default function UserNav() {
   const { locale } = useParams();
-  const user = SessionStorage.get('user') || null;
-  // const [aliasName, setAliasName] = useState('');
+  const [user, setUser] = useState({ name: '', email: '' });
 
   const t = useTranslations('NAVIGATION');
 
   const aliasName = useMemo(() => {
-    if (user) {
+    if (Object.keys(user).length !== 0) {
       return user.name
         .split(' ')
         .map((str: string) => str.charAt(0))
         .join('');
     }
-  }, [user]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-  // useEffect(() => {
-  //   if (user) {
-  //     setAliasName(
-  //       user.name
-  //         .split(' ')
-  //         .map((str: string) => str.charAt(0))
-  //         .join('')
-  //     );
-  //   }
-  // }, []);
+  useEffect(() => {
+    setUser(SessionStorage.get('user') || {});
+  }, []);
+
   const onLogOut = () => {
     SessionStorage.remove('user');
   };
   return (
-    <>
-      {user ? (
+    <div className="space-y-2">
+      {Object.values(user)[0] ? (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Avatar className="h-8 w-8">
-              <AvatarFallback>{aliasName}</AvatarFallback>
-            </Avatar>
+            <Button variant="outline" size="icon" className="overflow-hidden rounded-full">
+              <Avatar className="h-8 w-8">
+                <AvatarFallback>{aliasName}</AvatarFallback>
+              </Avatar>
+            </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-56" align="end" forceMount>
             <DropdownMenuLabel className="font-normal">
@@ -94,6 +90,6 @@ export default function UserNav() {
           </Link>
         </>
       )}
-    </>
+    </div>
   );
 }

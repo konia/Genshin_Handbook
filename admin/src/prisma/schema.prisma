@@ -21,18 +21,15 @@ model User {
 model Character {
   id              String    @id @default(auto()) @map("_id") @db.ObjectId
   name            String
-  card            String
-  cover           String
   star            String
-  characterVoice  String[] 
-  avatar          String
+  characterVoice  String[]
   weapon          String
   region          String
 
-  constellation   String    // 命之座
-  vision          String    // 神之眼
-  affiliation     String    //所属
-  title           String    //称号
+  constellation   String
+  vision          String
+  affiliation     String
+  title           String
   birthday        String
 }
 

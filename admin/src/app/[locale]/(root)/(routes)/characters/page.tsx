@@ -2,15 +2,17 @@ import React, { useState } from 'react';
 
 import Filter from '@/components/layout/filter';
 
-// import prismaDB from '@/lib/prisma';
-// import Characters from './components/characters';
+import prismaDB from '@/lib/prisma';
+import Characters from './components/characters';
 
 export default async function CharactersPage() {
-  // const characters = await prismaDB.character.findMany({
-  //   orderBy: {
-  //     name: 'desc'
-  //   }
-  // });
+  const characters = await prismaDB.character.findMany({
+    orderBy: {
+      name: 'desc'
+    }
+  });
+
+  console.log(characters);
 
   // const formattedCharacters = characters.map((character) => ({
   //   id: character.id,
@@ -23,7 +25,7 @@ export default async function CharactersPage() {
       <section className="mb-4">
         <Filter></Filter>
       </section>
-      {/* <Characters data={['111', '222', '333', '444', '111', '222', '333', '444']} /> */}
+      <Characters data={characters} />
     </>
   );
 }

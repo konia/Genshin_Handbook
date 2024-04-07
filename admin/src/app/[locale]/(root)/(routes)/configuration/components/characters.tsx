@@ -1,16 +1,13 @@
-// import { useTranslations } from 'next-intl';
-
-// import Link from 'next/link';
-// import { useParams, useRouter } from 'next/navigation';
+import { useParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { CalendarIcon } from '@radix-ui/react-icons';
+import { useRequest } from 'alova';
 
+import { http } from '@/api/http';
 import { Icons } from '@/components/icons';
-// import { useRequest } from 'alova';
-// import { http } from '@/api/http';
 import { Button } from '@/components/ui/button';
 import { Calendar } from '@/components/ui/calendar';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
@@ -41,7 +38,7 @@ export default function Characters() {
   // const [isValidLoading, setIsValidLoading] = useState<boolean>(false);
   // const [isValid, setIsValid] = useState<boolean>(false);
 
-  // const { locale } = useParams();
+  const { locale } = useParams();
   // const router = useRouter();
   const t = useTranslations('CONFIGURATION');
   const r = useTranslations('REGION');
@@ -52,9 +49,9 @@ export default function Characters() {
   //   immediate: false
   // });
 
-  // const createUser = useRequest((value: CharactersFormValues) => http.Post(`${locale}/api/users`, value), {
-  //   immediate: false
-  // });
+  const createCharacters = useRequest((value: CharactersFormValues) => http.Post(`${locale}/api/characters`, value), {
+    immediate: false
+  });
 
   // getUser.onComplete(({ data }) => {
   //   setIsValidLoading(false);
@@ -67,17 +64,18 @@ export default function Characters() {
   //   }
   // });
 
-  // createUser.onComplete(({ data }) => {
-  //   setIsLoading(false);
-  //   const user = data as UserResponse;
-  //   if (user && JSON.stringify(user) !== '{}') {
-  //     router.replace(`/${locale}/sign-in`);
-  //   }
-  // });
+  createCharacters.onComplete(({ data }) => {
+    setIsLoading(false);
+    console.log(data);
+    // const user = data;
+    // if (user && JSON.stringify(user) !== '{}') {
+    //   router.replace(`/${locale}/sign-in`);
+    // }
+  });
 
   const onSubmit = (value: CharactersFormValues) => {
     setIsLoading(true);
-    // createUser.send(value);
+    createCharacters.send(value);
     console.log(value);
   };
 

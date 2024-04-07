@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { genSalt, hashSync } from 'bcrypt-ts';
+import { format } from 'date-fns';
 
 import prismaDB from '@/lib/prisma';
 
@@ -24,18 +24,26 @@ export async function GET(req: NextRequest) {
 export async function POST(req: NextRequest) {
   try {
     const userForm = await req.json();
-    const salt = await genSalt(10);
-    const password = await hashSync(userForm.passwordForm.password, salt);
-
-    const user = await prismaDB.user.create({
+    console.log('userForm', userForm);
+    const characters = await prismaDB.character.create({
       data: {
-        email: userForm.email,
-        name: userForm.firstName + ' ' + userForm.lastName,
-        password
+        name: userForm.name,
+        star: userForm.star,
+        characterVoice: userForm.characterVoice.split(','),
+        weapon: userForm.weapon,
+        region: userForm.region,
+
+        constellation: userForm.constellation, // 命之座
+        vision: userForm.vision, // 神之眼
+        affiliation: userForm.affiliation, //所属
+        title: userForm.title, //称号
+        birthday: format(userForm.birthday, 'MM/dd')
       }
     });
-    return NextResponse.json({ code: 200, data: user });
+
+    return NextResponse.json({ code: 200, data: characters });
   } catch (error) {
+    console.log(error);
     return NextResponse.json({ code: 200, data: error });
   }
 }
