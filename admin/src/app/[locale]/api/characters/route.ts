@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { format } from 'date-fns';
-
+import { getLocale } from 'next-intl/server';
 import prismaDB from '@/lib/prisma';
 
 export async function GET(req: NextRequest) {
@@ -24,10 +24,11 @@ export async function GET(req: NextRequest) {
 export async function POST(req: NextRequest) {
   try {
     const userForm = await req.json();
-    console.log('userForm', userForm);
+    const locale = await getLocale();
+    console.log('userForm', locale);
     const characters = await prismaDB.character.create({
       data: {
-        name: userForm.name,
+        name: { locale: locale as string, value: userForm.name },
         star: userForm.star,
         characterVoice: userForm.characterVoice.split(','),
         weapon: userForm.weapon,

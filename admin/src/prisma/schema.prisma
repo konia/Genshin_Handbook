@@ -20,7 +20,7 @@ model User {
 }
 model Character {
   id              String    @id @default(auto()) @map("_id") @db.ObjectId
-  name            String
+  name            Language[]
   star            String
   characterVoice  String[]
   weapon          String
@@ -31,6 +31,11 @@ model Character {
   affiliation     String
   title           String
   birthday        String
+}
+
+type Language {
+  locale          String
+  value           String
 }
 
 enum Role {

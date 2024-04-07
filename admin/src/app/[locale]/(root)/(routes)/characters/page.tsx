@@ -1,14 +1,19 @@
 import React, { useState } from 'react';
-
+import { getLocale } from 'next-intl/server';
 import Filter from '@/components/layout/filter';
 
 import prismaDB from '@/lib/prisma';
 import Characters from './components/characters';
 
 export default async function CharactersPage() {
+  const locale = await getLocale();
   const characters = await prismaDB.character.findMany({
-    orderBy: {
-      name: 'desc'
+    where: {
+      name: {
+        every: {
+          locale: locale
+        }
+      }
     }
   });
 

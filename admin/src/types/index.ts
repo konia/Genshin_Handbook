@@ -25,7 +25,7 @@ export type UserResponse = {
 
 export type CharactersResponse = {
   id: string;
-  name: string;
+  name: { locale: string; value: string }[];
   star: string;
   characterVoice: string[];
   weapon: string;

@@ -7,7 +7,7 @@ export default function CharacterCard({ data }: { data: CharactersResponse }) {
     <article className="character-card h-[225px] w-full">
       <div className="character-card-image">
         <Image
-          src={`/images/characters/avatar/${data.name}_icon.png`}
+          src={`/images/characters/avatar/${data.name[0].value}_icon.png`}
           width={120}
           height={120}
           alt="Authentication"
@@ -23,7 +23,7 @@ export default function CharacterCard({ data }: { data: CharactersResponse }) {
           priority
         />
       </div>
-      <div className="character-card-name"> {data.name} </div>
+      <div className="character-card-name"> {data.name[0].value} </div>
       <div className="character-card-name"> {data.characterVoice[0]} </div>
     </article>
   );
