@@ -5,7 +5,7 @@ import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useRequest } from 'alova';
+import { useRequest } from 'alova/client';
 
 import { Instance } from '@/api/http';
 import { Icons } from '@/components/icons';
@@ -113,7 +113,7 @@ export default function SignInPage() {
             </form>
           </Form>
           <div className="inset-0 flex justify-between align-middle text-muted-foreground">
-            <div className="flex items-center space-x-2 ">
+            <div className="flex items-center space-x-2">
               <Checkbox id="rememberMe" />
               <Label htmlFor="rememberMe" className="font-normal">
                 {t('REMEMBER_ME')}

@@ -1,5 +1,5 @@
 import { createAlova } from 'alova';
-import GlobalFetch from 'alova/GlobalFetch';
+import GlobalFetch from 'alova/fetch';
 import ReactHook from 'alova/react';
 
 const headers = { 'Content-type': 'application/jso;charset=UTF-8' };

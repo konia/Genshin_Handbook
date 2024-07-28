@@ -5,7 +5,7 @@ import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useRequest } from 'alova';
+import { useRequest } from 'alova/client';
 
 import { http } from '@/api/http';
 import { Icons } from '@/components/icons';
@@ -111,9 +111,9 @@ export default function SignUnPage() {
                       {isValidLoading ? (
                         <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
                       ) : isValid ? (
-                        <Icons.check className="h-4 w-4  text-green-500" />
+                        <Icons.check className="h-4 w-4 text-green-500" />
                       ) : (
-                        form.getValues('email') !== '' && <Icons.cross className="h-4 w-4  text-red-500" />
+                        form.getValues('email') !== '' && <Icons.cross className="h-4 w-4 text-red-500" />
                       )}
                     </section>
                     <FormDescription>{t('EMAIL_ADDRESS_TIP')}</FormDescription>
