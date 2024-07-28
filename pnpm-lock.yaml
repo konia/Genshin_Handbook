@@ -232,13 +232,13 @@ importers:
   user:
     dependencies:
       '@ionic/react':
-        specifier: ^7.8.3
-        version: 7.8.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: ^8.2.6
+        version: 8.2.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@ionic/react-router':
-        specifier: ^7.8.3
-        version: 7.8.6(react-dom@18.3.1(react@18.3.1))(react-router-dom@6.25.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-router@6.25.1(react@18.3.1))(react@18.3.1)
+        specifier: ^8.2.6
+        version: 8.2.6(react-dom@18.3.1(react@18.3.1))(react-router-dom@6.25.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-router@6.25.1(react@18.3.1))(react@18.3.1)
       ionicons:
-        specifier: ^7.3.1
+        specifier: ^7.4.0
         version: 7.4.0
 
 packages:
@@ -1063,19 +1063,19 @@ packages:
     resolution: {integrity: sha512-93zYdMES/c1D69yZiKDBj0V24vqNzB/koF26KPaagAfd3P/4gUlh3Dys5ogAK+Exi9QyzlD8x/08Zt7wIKcDcA==}
     deprecated: Use @eslint/object-schema instead
 
-  '@ionic/core@7.8.6':
-    resolution: {integrity: sha512-HAYZdEmeJgOdo2kDlZkcCGHb+zs/vjU6iv4skbVBL7y+OnSv/oC2u83Yee8S3/aY0YAxkyBgu7hLTYH13Zc2Aw==}
+  '@ionic/core@8.2.6':
+    resolution: {integrity: sha512-9vLxIR+QFzeim/C6LV62vOm5e6EIoVZsLb5RjlnQICDbDf14iqcBjA+MZpW628HbADX7p9/ulaq8WFgx5085ZA==}
 
-  '@ionic/react-router@7.8.6':
-    resolution: {integrity: sha512-iCF66ULg37snl+LDB7HAk6HL+RZ419DBbobVUj6bLZ8R6yf7lG+Vf9e/fvu3GZEqyaGHfD7MxYyOSZbH1+qN5Q==}
+  '@ionic/react-router@8.2.6':
+    resolution: {integrity: sha512-Fs8IafBxD8tMmsN9PvAEgW0GHJGl1gtVeAW1NkW22wOeS+mLoZxd6iV0lqr5tnV1uhQZBQeCoaH4MtM497ltdw==}
     peerDependencies:
       react: '>=16.8.6'
       react-dom: '>=16.8.6'
       react-router: ^5.0.1
       react-router-dom: ^5.0.1
 
-  '@ionic/react@7.8.6':
-    resolution: {integrity: sha512-IIlcdOW2OmcrjC3nqGqQCcJdHDnEbGIfyzpKR0FDaRQ6M/a7Mz6IlIG/cgdGP0RBBadECykBFDfa6XgRAGwWoA==}
+  '@ionic/react@8.2.6':
+    resolution: {integrity: sha512-qcdd04P3vZzeyQvjF/7RIK9JJPxQgpBm3VxUh6a/NUPuLsq4d66UcD2pr4vGaejD3Vf15wyZeHDAVQGjqq+X2A==}
     peerDependencies:
       react: '>=16.8.6'
       react-dom: '>=16.8.6'
@@ -1851,11 +1851,6 @@ packages:
 
   '@rushstack/eslint-patch@1.10.4':
     resolution: {integrity: sha512-WJgX9nzTqknM393q1QJDJmoW28kUfEnybeTfVNcNAPnIx210RXm2DiXiHzfNPJNIUUb1tJnz/l4QGtJ30PgWmA==}
-
-  '@stencil/core@4.12.5':
-    resolution: {integrity: sha512-vSyFjY7XSEx0ufa9SebOd437CvnneaTXlCpuGDhjUDxAjGBlu6ie5qHyubobVGBth//aErc6wZPHc6W75Vp3iQ==}
-    engines: {node: '>=16.0.0', npm: '>=7.10.0'}
-    hasBin: true
 
   '@stencil/core@4.19.2':
     resolution: {integrity: sha512-ZdnbHmHEl8E5vN0GWDtONe5w6j3CrSqqxZM4hNLBPkV/aouWKug7D5/Mi6RazfYO5U4fmHQYLwMz60rHcx0G4g==}
@@ -5661,24 +5656,24 @@ snapshots:
 
   '@humanwhocodes/object-schema@2.0.3': {}
 
-  '@ionic/core@7.8.6':
+  '@ionic/core@8.2.6':
     dependencies:
       '@stencil/core': 4.19.2
       ionicons: 7.4.0
       tslib: 2.6.3
 
-  '@ionic/react-router@7.8.6(react-dom@18.3.1(react@18.3.1))(react-router-dom@6.25.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-router@6.25.1(react@18.3.1))(react@18.3.1)':
+  '@ionic/react-router@8.2.6(react-dom@18.3.1(react@18.3.1))(react-router-dom@6.25.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-router@6.25.1(react@18.3.1))(react@18.3.1)':
     dependencies:
-      '@ionic/react': 7.8.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@ionic/react': 8.2.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
       react-router: 6.25.1(react@18.3.1)
       react-router-dom: 6.25.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       tslib: 2.6.3
 
-  '@ionic/react@7.8.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@ionic/react@8.2.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
-      '@ionic/core': 7.8.6
+      '@ionic/core': 8.2.6
       ionicons: 7.4.0
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
@@ -6395,8 +6390,6 @@ snapshots:
     optional: true
 
   '@rushstack/eslint-patch@1.10.4': {}
-
-  '@stencil/core@4.12.5': {}
 
   '@stencil/core@4.19.2': {}
 
@@ -8053,7 +8046,7 @@ snapshots:
 
   ionicons@7.4.0:
     dependencies:
-      '@stencil/core': 4.12.5
+      '@stencil/core': 4.19.2
 
   is-arguments@1.1.1:
     dependencies:
